@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../common/head %>
+</head>
+
+<body>
+
+  <div class="" id="home">
+    <div class="container">
+      <div>
+        <nav class="navbar navbar-expand-xl">
+          <% if (user) { %>
+          <% include ../common/navbar %>
+          <% } else { %>
+          <% include ../common/navbar_noleads %>
+          <% } %>
+        </nav>
+      </div>
+
+      <div class="container tm-mt-big tm-mb-big">
+        <div class="row">
+          <form action='/users/signup' , method='POST'>
+            <table>
+              <tr>
+                <td>Email:</td>
+                <td>
+                  <input placeholder='Please enter your email' , required=true, name='email' , type='email' />
+                  <% if (errors && errors.email) %>
+                  <%= errors.email %>
+                </td>
+              </tr>
+              <tr>
+                <td>Password: </td>
+                <td>
+                  <input placeholder='New Password' ,required=true, name='password' , type='password' , value='' />
+                  <% if (errors && errors.password) %>
+                  <%= errors.password %>
+                  <button type='submit'> Sign up </button>
+                  Already have an account? <a href="/login"> Log in here.</a>
+                </td>
+              </tr>
+            </table>
+          </form>
+
+        </div>
+      </div>
+
+      <% include ../common/notification_list %>
+
+      <footer class="tm-footer row tm-mt-small">
+        <% include ../common/footer %>
+      </footer>
+    </div>
+  </div>
+</body>
+
+</html>

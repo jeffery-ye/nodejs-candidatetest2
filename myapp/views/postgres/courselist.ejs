@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <% include ../common/head %>
+</head>
+
+<body>
+        <div class="" id="home">
+                <div class="container">
+    <div>
+            <nav class="navbar navbar-expand-xl">
+                    <% if (user) { %> 
+                        <% include ../common/navbar %>
+                    <% } else { %>
+                        <% include ../common/navbar_noleads %>
+                    <% } %>
+                </nav>
+    </div>
+
+    <div class="container tm-mt-big tm-mb-big">
+      <div class="row">
+
+        <% if (courses.length > 0) {%>    
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Day</th>
+                        <th>Period</th>
+                        <th>Course Name</th>
+                        <th>User Name</th>
+                    </tr>
+                </thead>
+
+                <% for (var i=0; i< courses.length; i++) { %>
+                <tr>
+                    <td><%= courses[i].daytype %> </td>
+                    <td><%= courses[i].period %> </td>
+                    <td><%= courses[i].coursename %> </td>
+                </tr>
+                <% } %>
+            </table>
+        </div>
+        <% } else { %>
+            <p>No Course Found</p>
+        <% } %>
+    </div>
+
+    <div>
+            <% include ../common/notification_list %>
+    </div>
+    
+    <footer class="tm-footer row tm-mt-small">
+        <% include ../common/footer %>
+    </footer>
+    </div>
+    </div>
+</body>
+</html>

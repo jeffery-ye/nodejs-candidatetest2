@@ -1,0 +1,65 @@
+<html>
+<head>
+    <% include ../common/head %>
+</head>
+
+<body>
+    <div class="" id="home">
+        <div class="container">
+            <div>
+                <nav class="navbar navbar-expand-xl">
+                    <% if (user) { %>
+                    <% include ../common/navbar %>
+                    <% } else { %>
+                    <% include ../common/navbar_noleads %>
+                    <% } %>
+                </nav>
+            </div>
+
+            <div class="container tm-mt-big tm-mb-big">
+                    <div><% if (user.email) { %> <table class="table table-striped table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Period</th>
+                                    <th>Course Name</th>
+                                    <th>User Name</th>
+                                </tr>
+                            </thead>
+            
+                            <% for (var i=0; i< courses.length; i++) { %>
+                            <tr>
+                                <td><%= courses[i].daytype %> </td>
+                                <td><%= courses[i].period %> </td>
+                                <td><%= courses[i].coursename %> </td>
+                                <td><%= courses[i].username %> </td>
+                            </tr>
+                            <% } %>
+                            <% } %>
+                        </table> </div>
+                <div class="row align-items-center">
+                    <h1>Add a New Course?</h1>
+                    <form action='/postgres/createcourse' method='POST'>
+                        <h5>Day Color</h5>
+                        <input type='text' placeholder="Day Color" name='daytype' />
+                        <h5>Period</h5>
+                        <input type='text' placeholder="Period" name='period' />
+                        <h5>Class Name</h5>
+                        <input type='text' placeholder="Course Name" name='coursename' />
+                        <button type='submit'>Create Schedule</button>
+                    </form>
+
+                </div>
+            </div>
+            
+            <div>
+                <% include ../common/notification_list %>
+            </div>
+
+            <footer class="tm-footer row tm-mt-small">
+                <% include ../common/footer %>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

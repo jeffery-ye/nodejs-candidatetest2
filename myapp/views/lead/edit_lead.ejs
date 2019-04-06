@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../common/head %>
+</head>
+
+
+<body>
+  <div>
+    <nav class="navbar navbar-expand-xl">
+      <% if (user) { %>
+      <% include ../common/navbar %>
+      <% } else { %>
+      <% include ../common/navbar_noleads %>
+      <% } %>
+    </nav>
+  </div>
+
+  <div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+      <h1>Edit Lead:</h1>
+    </div>
+
+    <div class="row">
+
+      <form action="/lead/<%= lead.id %>/edit" , method="POST">
+        <input name="lead_email" , type="email" , value=<%= lead.email %> />
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+
+
+  <footer class="tm-footer row tm-mt-small">
+    <% include ../common/footer %>
+  </footer>
+
+  </div>
+</body>
+
+</html>

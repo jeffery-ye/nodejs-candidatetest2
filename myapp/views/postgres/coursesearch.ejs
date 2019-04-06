@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <% include ../common/head %>
+</head>
+
+
+<body>
+<div class="" id="home">
+        <div class="container">
+    <div>
+            <nav class="navbar navbar-expand-xl">
+                    <% if (user) { %> 
+                        <% include ../common/navbar %>
+                    <% } else { %>
+                        <% include ../common/navbar_noleads %>
+                    <% } %>
+                </nav>
+    </div>
+
+    <div class="container tm-mt-big tm-mb-big">
+      <div class="row">
+        <form action='/postgres/courselist' method='POST'>
+            <input type='text' placeholder = "Day Color" name='daytype' />
+            <input type='text' placeholder = "Period" name='period' />
+            <input type='text' placeholder = "Class Name" name='coursename' />
+            <button type='submit'>Search</button>
+        </form>
+    </div>
+    </div>
+    
+
+    <div>
+            <% include ../common/notification_list %>
+    </div>
+    
+    <footer class="tm-footer row tm-mt-small">
+        <% include ../common/footer %>
+    </footer>
+    </div>
+
+    </div>
+</body>
+
+</html>

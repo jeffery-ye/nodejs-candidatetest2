@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../common/head %>
+</head>
+
+
+<body>
+  <div>
+    <nav class="navbar navbar-expand-xl">
+      <% if (user) { %>
+      <% include ../common/navbar %>
+      <% } else { %>
+      <% include ../common/navbar_noleads %>
+      <% } %>
+    </nav>
+    <div class="container tm-mt-big tm-mb-big">
+
+      <div class="row">
+        <div class="col-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+
+
+
+
+            <div class="row">
+              <div class="col-12 text-center">
+
+                <h2 class="tm-block-title">Leads</h2>
+
+
+                <table>
+                  <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                  <tr id=<%= lead.id %> <td><%= lead.email %></td>
+                    <td><a href="/lead/<%= lead.id %>"></a> </td>
+                    <td>
+                      <a href="/lead/<%= lead.id %>/edit">Edit</a></td>
+                    <td>
+                      <form action="/lead/<%= lead.id %>/delete" , method="POST">
+                        <button type="submit">Delete</button>
+                      </form>
+                    </td>
+
+                  </tr>
+
+                </table>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="/javascripts/leads.js"></script>
+  </div>
+  <footer class="tm-footer row tm-mt-small">
+    <% include ../common/footer %>
+  </footer>
+</body>
+
+</html>

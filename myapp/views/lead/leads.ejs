@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../common/head %>
+</head>
+
+<body>
+  <div>
+    <nav class="navbar navbar-expand-xl">
+      <% if (user) { %>
+      <% include ../common/navbar %>
+      <% } else { %>
+      <% include ../common/navbar_noleads %>
+      <% } %>
+    </nav>
+
+  </div>
+
+
+  <div class="container tm-mt-big tm-mb-big">
+    <p style="text-align: right;">Welcome <% if (user) { %> <%= user.email %> <% } else { %> guest <% } %></p>
+    <div class="row">
+      <div class="col-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12 text-center">
+
+              <h2 class="tm-block-title">Leads</h2>
+
+
+              <table class="table">
+                <tr>
+                  <th scope="col">Email</th>
+                  <th scope="col">Actions</th>
+                  <th scope="col">Delete?</th>
+                </tr>
+
+
+                <% for (var i= 0; i<leads.length; i++) { %>
+                <tr id=<%= leads[i].id %>>
+                  <td><%= leads[i].email %></td>
+                  <td><a href="/lead/<%= leads[i].id %>"> Details </a> </td>
+                  <td>
+                    <button onclick='deleteLead("<%= leads[i].id %>")'> Delete </button>
+                  </td>
+
+                </tr>
+
+                <% } %>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="tm-footer row tm-mt-small">
+    <% include ../common/footer %>
+  </footer>
+  <script src='/javascripts/leads.js'></script>
+</body>
+
+</html>

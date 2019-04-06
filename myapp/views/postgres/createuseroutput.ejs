@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <% include ../common/head %>
+</head>
+
+<body>
+        <div class="" id="home">
+                <div class="container">
+
+    <div>
+            <nav class="navbar navbar-expand-xl">
+                    <% if (user) { %> 
+                        <% include ../common/navbar %>
+                    <% } else { %>
+                        <% include ../common/navbar_noleads %>
+                    <% } %>
+                </nav>
+    </div>
+
+    <div class="container tm-mt-big tm-mb-big">
+      <div class="row">
+        <% if (new_user.firstName) { %>
+        <h3>Thank you
+            <%= new_user.firstName %> <%= new_user.lastName %>!
+            Your information has been added into the database.</h3>
+
+        <% } else { %>
+Please provide your first name.
+            <% } %>   
+    </div>
+
+    </div>
+
+
+    
+    <div>
+            <% include ../common/notification_list %>
+    </div>
+
+    
+    <footer class="tm-footer row tm-mt-small">
+        <% include ../common/footer %>
+    </footer>
+
+    </div>
+    </div>
+</body>
+
+
+
+</html>
