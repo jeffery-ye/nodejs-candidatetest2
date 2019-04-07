@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <% include ../common/head %>
+    <style>
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 1em 0;
+            padding: 0;
+        }
+
+        .textcolor {
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="" id="home">
+        <div class="container">
+            <div>
+                <nav class="navbar navbar-expand-xl">
+                    <% if (user) { %>
+                    <% include ../common/navbar %>
+                    <% } else { %>
+                    <% include ../common/navbar_noleads %>
+                    <% } %>
+                </nav>
+            </div>
+
+            <div class="container tm-mt-big tm-mb-big">
+                <div class="row align-items-center">
+
+                    <% if (cheatsheet.length >0) { %>
+                    <div>
+                        <% for (var i=0; i< cheatsheet.length; i++) { %>
+
+                        <h2 class="textcolor"><b>
+                                <%= cheatsheet[i].functionality %>
+                            </b>
+                        </h2>
+                        <div style="background:darkgrey !important" class="jumbotron">
+                            <p>
+                                <b>
+                                    <%= cheatsheet[i].syntax %>
+                                </b>
+                            </p>
+                        </div>
+                        <hr />
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+
+
+                <% if (user.is_admin) { %>
+                <div class="row align-items-center">
+                    <div>
+                        <form action='/postgres/cheatsheet' method='POST'>
+                            <h5>Function</h5>
+                            <input type='text' placeholder="Function" name='functionality' required />
+                            <h5>Syntax</h5>
+                            <input type='text' placeholder="Syntax" name='syntax' required />
+                            <button type='submit'>Create Record</button>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+
+
+            </div>
+
+            <div>
+                <% include ../common/notification_list %>
+            </div>
+
+            <footer class="tm-footer row tm-mt-small">
+                <% include ../common/footer %>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>

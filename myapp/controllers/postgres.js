@@ -116,7 +116,7 @@ exports.insert_course = function (req, res, next) {
                         console.log("Failed to find user")
                         return
                     }
-                    
+
                     res.render('postgres/createcourse', { courses: rows.rows, user: req.user });
                 })
             })
@@ -178,9 +178,9 @@ exports.course_delete = function (req, res, next) {
         if (err) {
             console.log("Failed to find user")
             return
-        }  
+        }
     })
-    
+
     const sql_query = "SELECT * FROM courseschedule WHERE id = $1"
     pgpool.query(sql_query, [courseid], (err, rows) => {
         if (err) {
@@ -189,5 +189,42 @@ exports.course_delete = function (req, res, next) {
         }
         console.log(rows.rows)
         res.render('postgres/createcourse', { courses: rows.rows, user: req.user });
+    })
+}
+
+
+
+exports.show_cheatsheet = function (req, res, next) {
+    const sql_query = "SELECT * FROM cheatsheet"
+    pgpool.query(sql_query, [], (err, rows) => {
+        if (err) {
+            console.log("Failed to find user")
+            return
+        }
+        console.log(rows.rows)
+        res.render('postgres/cheatsheet', { cheatsheet: rows.rows, user: req.user });
+    })
+
+}
+
+exports.sheet_create = function (req, res, next) {
+    const functionality = req.body.functionality
+    const syntax = req.body.syntax
+    const sql_insert = "INSERT INTO cheatsheet (functionality, syntax) values ($1,$2)"
+    pgpool.query(sql_insert, [functionality, syntax], (err, rows) => {
+        if (err) {
+            console.log("Failed to find user")
+            return
+        }
+        console.log("user name --- ", rows.rows)
+
+        const sql_query = "SELECT * FROM cheatsheet"
+        pgpool.query(sql_query, [], (err, rows) => {
+            if (err) {
+                console.log("Failed to find user")
+                return
+            }
+            res.render('postgres/cheatsheet', { cheatsheet: rows.rows, user: req.user, text: "Record Succesfully Inserted" });
+        })
     })
 }

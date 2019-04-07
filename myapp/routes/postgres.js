@@ -25,4 +25,10 @@ router.post('/createuseroutput', postgres.user_created);
 router.get('/usersearch', postgres.search_user);
 router.post('/usersearchresults', postgres.search_results);
 
+
+//Cheat Sheet
+
+router.get('/cheatsheet', postgres.show_cheatsheet)
+router.post('/cheatsheet', postgres.sheet_create)
+
 module.exports = router;
