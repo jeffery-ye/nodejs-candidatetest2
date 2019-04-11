@@ -39,23 +39,30 @@
                 </div>
 
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block">
-                        <h2 class="tm-block-title">Performance</h2>
-                    </div>
+                        <% if (cheatsheet.length >0) { %>
+                            <div>
+                                <% for (var i=0; i< cheatsheet.length; i++) { %>
+        
+                                <h2 class="textcolor"><b>
+                                        <%= cheatsheet[i].functionality %>
+                                    </b>
+                                </h2>
+                                <div>
+                                    <p>
+                                        <b>
+                                            <%= cheatsheet[i].syntax %>
+                                        </b>
+                                    </p>
+                                </div>
+                                <hr />
+                                <% } %>
+                                <% } %>
+                            </div>
                 </div>
 
-                <!--
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block tm-block-taller">
-                        <h2 class="tm-block-title">Storage Information</h2>
-                        <div id="pieChartContainer">
-                            
-                        </div>
-                    </div>
-                </div>
--->
+            
 
-                <% include common/notification_list %>
+                <% include common/comments %>
 
             </div>
 

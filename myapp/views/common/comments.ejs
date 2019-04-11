@@ -1,0 +1,38 @@
+<div class="container tm-mt-big tm-mb-big">
+    <div class="row align-items-center">
+        <% if (comments.length >0) { %>
+
+        <div>
+            <% for (var i=0; i< comments.length; i++) { %>
+            <hr />
+            <h4 class="textcolor">
+                <%= comments[i].title %>
+                <br />
+                <hr />
+                By:
+
+                <%= comments[i].username %>
+
+            </h4>
+
+            <div>
+                <p class="textcolor">
+
+                    <%= comments[i].commenttext %>
+
+                    <br />
+                    <b>
+                        <%= comments[i].ts %>
+                    </b>
+                </p>
+            </div>
+            <hr />
+            <% } %>
+            <% } %>
+        </div>
+    </div>
+
+
+    <a href = '/postgres/comments' class='btn btn-primary'>Leave A Comment</a>
+
+</div>

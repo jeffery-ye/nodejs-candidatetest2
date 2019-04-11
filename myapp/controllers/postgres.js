@@ -7,6 +7,24 @@ let flash = require('connect-flash');
 const { isEmpty } = require('lodash');
 const { validateUser } = require('../validators/signup');
 
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 's.jeffery.ye@gmail.com',
+        pass: 'Siyuan05'
+    }
+});
+
+// var mailOptions = {
+//     from: 's.jeffery.ye@gmail.com',
+//     to: 's.jeffery.ye@gmail.com',
+//     subject: 'Sending Email using Node.js',
+//     text: 'That was easy!'
+// };
+
+
 exports.create_user = function (req, res, next) {
     res.render('postgres/createuser', { formData: {}, errors: {}, user: req.user });
 }
@@ -79,7 +97,7 @@ exports.insert_course = function (req, res, next) {
     const coursename = req.body.coursename
     const username = req.user.email
     const sql_return_course = "SELECT * FROM courseschedule WHERE username = $1"
-    const sql_insert = "INSERT INTO courseschedule (daytype, period, coursename, username) values ($1,$2, $3, $4)"
+    const sql_insert = "INSERT INTO courseschedule (daytype, period, coursename, username) values ($1, $2, $3, $4)"
     const sql_check_exist = "SELECT * FROM courseschedule WHERE username = $1 and daytype = $2 and period = $3"
     const sql_update = "update courseschedule set coursename = $1 where daytype  = $2 and period = $3"
     pgpool.query(sql_check_exist, [username, daytype, period], (err, rows) => {
@@ -88,6 +106,7 @@ exports.insert_course = function (req, res, next) {
             return
         }
         console.log("user name --- ", rows.rows)
+
         if (rows && rows.rows.length > 0) {
             console.log("user name ---------- " + rows.rows)
             pgpool.query(sql_update, [coursename, daytype, period], (err, rows) => {
@@ -195,7 +214,7 @@ exports.course_delete = function (req, res, next) {
 
 
 exports.show_cheatsheet = function (req, res, next) {
-    const sql_query = "SELECT * FROM cheatsheet"
+    const sql_query = "SELECT * FROM cheatsheet order by ts desc LIMIT 10"
     pgpool.query(sql_query, [], (err, rows) => {
         if (err) {
             console.log("Failed to find user")
@@ -218,7 +237,7 @@ exports.sheet_create = function (req, res, next) {
         }
         console.log("user name --- ", rows.rows)
 
-        const sql_query = "SELECT * FROM cheatsheet"
+        const sql_query = "SELECT * FROM cheatsheet order by ts desc LIMIT 10"
         pgpool.query(sql_query, [], (err, rows) => {
             if (err) {
                 console.log("Failed to find user")
@@ -226,5 +245,70 @@ exports.sheet_create = function (req, res, next) {
             }
             res.render('postgres/cheatsheet', { cheatsheet: rows.rows, user: req.user, text: "Record Succesfully Inserted" });
         })
+    })
+}
+
+//Comments
+
+exports.show_comments = function (req, res, next) {
+    const sql_query = "SELECT * FROM comments"
+    pgpool.query(sql_query, [], (err, rows) => {
+        if (err) {
+            console.log("Failed to find user")
+            return
+        }
+        //console.log(rows.rows)
+        res.render('postgres/comments', { texts: '', comments: rows.rows, user: req.user });
+    })
+
+}
+
+exports.site_comments = function (req, res, next) {
+    const title = req.body.title
+    const commenttext = req.body.commenttext
+    const username = req.user.email
+
+
+    if (username) {
+
+
+        var mailOptions = {
+            from: 's.jeffery.ye@gmail.com',
+            to: req.user.email,
+            subject: 'Re: ' + title,
+            html: 'Thank you for your comment. The comment has been recieved. <br /> <b>' + commenttext + '<b> <br /> Thank you, ~ Web Dev'
+            //Alternate Version:  text: 'Thank you for your comment. The comment has been recieved. <br /> <b>' + commenttext + '<b> <br /> Thank you, ~ Web Dev'
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+
+    }
+
+
+    const sql_insert = "INSERT INTO comments (title, commenttext, username) values ($1,$2,$3)"
+    pgpool.query(sql_insert, [title, commenttext, username], (err, rows) => {
+        if (err) {
+            console.log("Failed to find user")
+            return
+        }
+
+        console.log("user name --- ", rows.rows)
+        const sql_query = "SELECT * FROM comments"
+        pgpool.query(sql_query, [], (err, rows) => {
+            if (err) {
+                console.log("Failed to find user")
+                return
+            }
+            //console.log(rows.rows)
+            res.render('postgres/comments', { texts: 'Message Recieved', comments: rows.rows, user: req.user });
+        })
+
     })
 }

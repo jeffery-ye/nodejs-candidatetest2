@@ -31,4 +31,9 @@ router.post('/usersearchresults', postgres.search_results);
 router.get('/cheatsheet', postgres.show_cheatsheet)
 router.post('/cheatsheet', postgres.sheet_create)
 
+//Comments
+
+router.get('/comments', postgres.show_comments)
+router.post('/comments', postgres.site_comments)
+
 module.exports = router;

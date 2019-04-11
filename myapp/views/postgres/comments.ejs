@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <title>Comments</title>
+
+    <% include ../common/head %>
+
+    <style>
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 1em 0;
+            padding: 0;
+        }
+
+        .textcolor {
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="" id="home">
+        <div class="container">
+            <div>
+                <nav class="navbar navbar-expand-xl">
+                    <% if (user) { %>
+                    <% include ../common/navbar %>
+                    <% } else { %>
+                    <% include ../common/navbar_noleads %>
+                    <% } %>
+                </nav>
+            </div>
+
+
+            <div class="container tm-mt-big tm-mb-big">
+                <div class="row align-items-center">
+                    <% if (comments.length >0) { %>
+
+                    <div>
+                        <% for (var i=0; i< comments.length; i++) { %>
+                        <hr />
+                        <h4 class="textcolor">
+                            <%= comments[i].title %>
+                            <br />
+                            <hr />
+                            By:
+
+                            <%= comments[i].username %>
+
+                        </h4>
+
+                        <div>
+                            <p class="textcolor">
+
+                                <%= comments[i].commenttext %>
+
+                                <br />
+                                <b>
+                                    <%= comments[i].ts %>
+                                </b>
+                            </p>
+                        </div>
+                        <hr />
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="row align-items-center">
+<% if (texts != '') { %>
+    <h2>Thank you for the comment! An email has been sent to you confirming the comment.</h2>
+<% } %>
+                    <div>
+                        <form action='/postgres/comments' method='POST'>
+                            <h5>Title</h5>
+                            <input type='text' placeholder="Title" name='title' required />
+                            <h5>Comment</h5>
+                            <textarea name='commenttext' required rows="5" cols="100%" required></textarea>
+                            <br />
+                            <button type='submit'>Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <% include ../common/notification_list %>
+            </div>
+            <footer class="tm-footer row tm-mt-small">
+                <% include ../common/footer %>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>
