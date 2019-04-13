@@ -8,7 +8,6 @@ const { isEmpty } = require('lodash');
 const { validateUser } = require('../validators/signup');
 
 
-
 const Pool = require('pg').Pool
 const pgpool = new Pool({
 	connectionLimit: 10,
@@ -21,16 +20,10 @@ const pgpool = new Pool({
 
 
 exports.show_login = function (req, res, next) {
-	getComments(function (err, results) {
-		if (err) {
-			console.log("error", err)
-		}
-		else {
-			console.log("results from db", results)
-		}
-		//res.render('landing', { title: 'Express', comments: results, user: req.user, isLoggedIn: isLoggedIn });
-		res.render('users/login', { comments: results, formData: {}, errors: {}, user: req.user });
-	})
+	console.log("Captcha test", res.recaptcha)
+	//res.render('landing', { title: 'Express', comments: results, user: req.user, isLoggedIn: isLoggedIn });
+	res.render('users/login', { user: req.user });
+
 }
 
 exports.show_signup = function (req, res, next) {
@@ -88,12 +81,19 @@ exports.signup = function (req, res, next) {
 }
 
 exports.login = function (req, res, next) {
-	passport.authenticate('local', {
-		successRedirect: "/",
-		failureRedirect: "/login",
-		failureFlash: true
-	})(req, res, next);
+	if (!req.recaptcha.error) {
+		passport.authenticate('local', {
+			successRedirect: "/",
+			failureRedirect: "/login",
+			failureFlash: true
+		})(req, res, next);
+	  } else {
+		  
+		
+	  }
+	
 }
+
 exports.logout = function (req, res, next) {
 	req.logout();
 	req.session.destroy();

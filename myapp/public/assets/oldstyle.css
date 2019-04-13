@@ -12,7 +12,7 @@ html {
 }
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
-  background-color: #a8d0e6; /*#89A3B0; /*#4e657a;*/
+  background-color: #4e657a;
   overflow-x: hidden;
 }
 a {
@@ -41,7 +41,7 @@ button:focus {
 }
 .navbar {
   height: 100px;
-  background-color: #24305e; /* #f78888; /*#89A3B0; /*#5da2d5;*/
+  background-color: #567086;
   padding: 0;
 }
 .navbar .container {
@@ -116,7 +116,7 @@ button:focus {
 .dropdown-menu {
   font-size: 90%;
   color: #fff;
-  background-color: #24305e;
+  background-color: #567086;
   border-radius: 0;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -128,7 +128,7 @@ button:focus {
 }
 .navbar-nav .active > .nav-link,
 .navbar-nav .nav-link.active {
-  background-color: #374785;
+  background-color: #f5a623;
   color: #fff;
 }
 .navbar-nav .nav-link.active i {
@@ -136,11 +136,11 @@ button:focus {
 }
 .dropdown-item:focus,
 .dropdown-item:hover {
-  background-color: #a8d0e6;
+  background-color: #567086;
 }
 .navbar-nav a:hover,
 .navbar-nav a:hover i {
-  color: #374785;
+  color: #f5a623;
 }
 .nav-item {
   text-align: center;
@@ -184,7 +184,7 @@ button:focus {
 }
 .tm-notification-item {
   padding: 15px;
-  background-color: #f76c6c; /*#4e657a;*/
+  background-color: #4e657a;
   color: #fff;
   font-size: 95%;
   margin-bottom: 15px;
@@ -193,7 +193,7 @@ button:focus {
   margin-bottom: 0;
 }
 .tm-notification-link {
-  color: #374785;
+  color: #f5a623;
 }
 .tm-text-color-secondary {
   color: #bdcbd8;
@@ -202,13 +202,13 @@ button:focus {
   font-size: 90%;
 }
 .table {
-  background-color: #f76c6c; /*#50697f;*/
+  background-color: #50697f;
   color: #fff;
   font-size: 85%;
   margin-bottom: 0;
 }
 thead {
-  background-color: #374785; /*#486177;*/
+  background-color: #486177;
   color: #fff;
 }
 .table thead th {
@@ -339,16 +339,16 @@ thead {
 }
 .btn-primary {
   color: #fff;
-  background-color: #f76c6c;
-  border: 2px solid #f76c6c;
+  background-color: #f5a623;
+  border: 2px solid #f5a623;
   font-size: 90%;
   font-weight: 600;
 }
 .btn-primary:active,
 .btn-primary:hover {
-  color: #f76c6c;
+  color: #f5a623;
   background-color: transparent;
-  border: 2px solid #f76c6c;
+  border: 2px solid #f5a623;
 }
 .custom-file-input {
   cursor: pointer;
@@ -358,7 +358,7 @@ thead {
 }
 .table td,
 .table th {
-  border-top: 1px solid #374785; /*#415a70;*/
+  border-top: 1px solid #415a70;
   padding: 15px 25px;
   vertical-align: middle;
 }
@@ -374,7 +374,7 @@ thead {
   color: #a0c0de;
 }
 .tm-bg-primary-dark {
-  background-color: #374785; /*#89A3B0; /*#435c70;/* #2273F5; /*; /*#705843; /*#435c70;*/
+  background-color: #435c70;
 }
 .tm-bg-gray {
   background-color: rgba(0, 0, 0, 0.05);
@@ -492,7 +492,7 @@ input[type="checkbox"]:focus {
   color: #9f1321;
 }
 .tm-footer {
-  background-color: #374785;/*#f78888; /*#f76c6c;*/
+  background-color: #567086;
   padding-top: 30px;
   padding-bottom: 30px;
   -webkit-box-shadow: 0 -3px 5px 0 rgba(69, 92, 113, 0.59);
@@ -543,14 +543,14 @@ input[type="checkbox"]:focus {
   transition: all 0.2s ease;
 }
 .navbar-toggler:hover {
-  border-color: #f3d250;
-  color: #f3d250;
+  border-color: #f5a623;
+  color: #f5a623;
 }
 .tm-nav-icon {
   color: #fff;
 }
 .navbar-toggler:hover .tm-nav-icon {
-  color: #f3d250;
+  color: #f5a623;
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -618,7 +618,7 @@ input[type="checkbox"]:focus {
   }
   .nav-link {
     color: #fff;
-    background-color: #f76c6c;
+    background-color: #567086;
     padding: 15px;
     flex-direction: row;
   }

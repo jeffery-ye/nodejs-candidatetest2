@@ -271,23 +271,59 @@ exports.site_comments = function (req, res, next) {
 
     if (username) {
 
-
-        var mailOptions = {
-            from: 's.jeffery.ye@gmail.com',
-            to: req.user.email,
-            subject: 'Re: ' + title,
-            html: 'Thank you for your comment. The comment has been recieved. <br /> <b>' + commenttext + '<b> <br /> Thank you, ~ Web Dev'
-            //Alternate Version:  text: 'Thank you for your comment. The comment has been recieved. <br /> <b>' + commenttext + '<b> <br /> Thank you, ~ Web Dev'
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
+        const sql_select = "SELECT * FROM emaillist WHERE email IS NOT null"
+        pgpool.query(sql_select, [], (err, rows) => {
+            if (err) {
+                console.log("Failed to find user")
+                return
             }
-        });
 
+
+            for (i = 0; i < rows.rows.length; i++) {
+                console.log(rows.rows[i].email)
+
+                try {
+                    var mailOptions = {
+                        from: 's.jeffery.ye@gmail.com',
+                        //to: req.user.email,
+                        to: rows.rows[i].email,
+                        subject: 'Re: ' + title,
+                        html: 'Dear ' + rows.rows[i].first_name + ', <br /> Thank you for your comment. The comment has been recieved. <br /> <b>' + commenttext + '<b> <br /> Thank you, ~ Web Dev'
+                        //Alternate Version:  text: 'Thank you for your comment. The comment has been recieved. <br /> <b>' + commenttext + '<b> <br /> Thank you, ~ Web Dev'
+                    };
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
+                } catch (err) {
+                    console.log("Email Sending Error Caught")
+                    var mailOptions = {
+                        from: 's.jeffery.ye@gmail.com',
+                        to: 's.jeffery.ye@gmail.com',
+                        subject: 'Error Captured',
+                        html: 'site_comments Error.'
+                    };
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
+                    continue;
+                }
+
+
+            }
+
+
+
+        })
 
     }
 
